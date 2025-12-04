@@ -1,0 +1,15 @@
+# Arquivos de Sistema
+.DS_Store
+*.pyc
+*.log
+
+# Ambiente Virtual
+venv/
+env/
+
+# Banco de Dados
+db.sqlite3
+
+# Arquivos de Configuração do Django (CRÍTICO)
+.env
+secret.key
