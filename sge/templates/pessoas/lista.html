@@ -1,47 +1,60 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Lista de Pessoas | SGE</title>
-    <style>
-        body { font-family: Arial, sans-serif; }
-        table { border-collapse: collapse; width: 80%; margin-top: 20px; }
-        th, td { border: 1px solid #000; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        a { text-decoration: none; margin: 0 5px; }
-    </style>
-</head>
-<body>
-    <h2>Cadastro de Pessoas</h2>
-    
-    <p><a href="{% url 'criar_pessoa' %}">+ Adicionar Nova Pessoa</a></p> 
+{% extends "base.html" %}
 
-    <table>
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>E-mail</th>
-                <th>Celular</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for pessoa in pessoas %}
-            <tr>
-                <td>{{ pessoa.nome }}</td>
-                <td>{{ pessoa.email }}</td>
-                <td>{{ pessoa.celular }}</td>
-                <td>
-                    <a href="{% url 'alterar_pessoa' pessoa.id %}">[Alterar]</a>
-                    <a href="{% url 'excluir_pessoa' pessoa.id %}">[Excluir]</a>
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="4">Nenhuma pessoa cadastrada.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</body>
-</html>
+{% block title %}Lista de Pessoas | SGE{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2><i class="fas fa-list-ul"></i> Cadastro de Pessoas</h2>
+    </div>
+    <div class="card-body">
+        <div class="add-button">
+            <a href="{% url 'criar_pessoa' %}" class="btn btn-primary btn-lg">
+                <i class="fas fa-plus"></i> Adicionar Nova Pessoa
+            </a>
+        </div>
+
+        {% if pessoas %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-user"></i>Nome</th>
+                        <th><i class="fas fa-envelope"></i>E-mail</th>
+                        <th><i class="fas fa-mobile-alt"></i>Celular</th>
+                        <th style="width: 200px; text-align: center;">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pessoa in pessoas %}
+                    <tr>
+                        <td>
+                            <strong>{{ pessoa.nome }}</strong>
+                        </td>
+                        <td>{{ pessoa.email }}</td>
+                        <td>{{ pessoa.celular }}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="{% url 'alterar_pessoa' pessoa.id %}" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-edit"></i> Editar
+                                </a>
+                                <a href="{% url 'excluir_pessoa' pessoa.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir {{ pessoa.nome }}?');">
+                                    <i class="fas fa-trash"></i> Excluir
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <i class="fas fa-inbox"></i>
+            <p><strong>Nenhuma pessoa cadastrada</strong></p>
+            <p style="color: #9ca3af;">Clique em "Adicionar Nova Pessoa" para começar</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
