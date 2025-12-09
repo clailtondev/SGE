@@ -1,5 +1,5 @@
 
-# SGE (Sistema de Gerenciamento Escolar)
+# SGE 
 
 O SGE é um projeto de estudo e desenvolvimento em Python utilizando o framework Django. O objetivo é criar um sistema básico para gerenciamento de cadastros de entidades escolares.
 
@@ -21,7 +21,7 @@ Para clonar e executar este projeto em sua máquina, siga os passos abaixo.
 
 Certifique-se de ter instalado:
 
-* **Python 3.x**
+* **Python 3**
 * **Git**
 
 ### 2. Clonar o Repositório
